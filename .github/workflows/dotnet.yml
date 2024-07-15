@@ -20,7 +20,7 @@ jobs:
       run: dotnet restore
     
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore /p:EnableWindowsTargeting=true
     
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build /p:EnableWindowsTargeting=true --verbosity normal
