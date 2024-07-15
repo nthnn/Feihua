@@ -130,7 +130,7 @@ namespace Feihua
             BrowseButton.TabStop = false;
             BrowseButton.Text = "Browse";
             BrowseButton.UseVisualStyleBackColor = false;
-            BrowseButton.Click += BrowseButtonClick;
+            BrowseButton.Click += BrowseFileFolderEvent;
             // 
             // LogTextBox
             // 
@@ -212,6 +212,7 @@ namespace Feihua
             ClearLogsButton.TabStop = false;
             ClearLogsButton.Text = "Clear Logs";
             ClearLogsButton.UseVisualStyleBackColor = false;
+            ClearLogsButton.Click += ClearLogsEvent;
             // 
             // MainForm
             // 
