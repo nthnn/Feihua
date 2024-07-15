@@ -54,6 +54,8 @@ namespace Feihua
             LogTextBox = new TextBox();
             UpdateDatabaseButton = new Button();
             MinimizeButton = new Button();
+            ScanFileButton = new Button();
+            ClearLogsButton = new Button();
             ((System.ComponentModel.ISupportInitialize)Banner).BeginInit();
             SuspendLayout();
             // 
@@ -153,9 +155,9 @@ namespace Feihua
             UpdateDatabaseButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             UpdateDatabaseButton.FlatStyle = FlatStyle.Flat;
             UpdateDatabaseButton.ForeColor = Color.Gainsboro;
-            UpdateDatabaseButton.Location = new Point(12, 236);
+            UpdateDatabaseButton.Location = new Point(184, 236);
             UpdateDatabaseButton.Name = "UpdateDatabaseButton";
-            UpdateDatabaseButton.Size = new Size(509, 25);
+            UpdateDatabaseButton.Size = new Size(166, 25);
             UpdateDatabaseButton.TabIndex = 6;
             UpdateDatabaseButton.TabStop = false;
             UpdateDatabaseButton.Text = "Update Database";
@@ -179,6 +181,38 @@ namespace Feihua
             MinimizeButton.MouseEnter += MinimizeButtonEnter;
             MinimizeButton.MouseLeave += MinimizeButtonExit;
             // 
+            // ScanFileButton
+            // 
+            ScanFileButton.BackColor = Color.Transparent;
+            ScanFileButton.FlatAppearance.BorderColor = Color.DimGray;
+            ScanFileButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            ScanFileButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            ScanFileButton.FlatStyle = FlatStyle.Flat;
+            ScanFileButton.ForeColor = Color.Gainsboro;
+            ScanFileButton.Location = new Point(12, 236);
+            ScanFileButton.Name = "ScanFileButton";
+            ScanFileButton.Size = new Size(166, 25);
+            ScanFileButton.TabIndex = 8;
+            ScanFileButton.TabStop = false;
+            ScanFileButton.Text = "Scan File(s)";
+            ScanFileButton.UseVisualStyleBackColor = false;
+            // 
+            // ClearLogsButton
+            // 
+            ClearLogsButton.BackColor = Color.Transparent;
+            ClearLogsButton.FlatAppearance.BorderColor = Color.DimGray;
+            ClearLogsButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            ClearLogsButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            ClearLogsButton.FlatStyle = FlatStyle.Flat;
+            ClearLogsButton.ForeColor = Color.Gainsboro;
+            ClearLogsButton.Location = new Point(356, 236);
+            ClearLogsButton.Name = "ClearLogsButton";
+            ClearLogsButton.Size = new Size(166, 25);
+            ClearLogsButton.TabIndex = 9;
+            ClearLogsButton.TabStop = false;
+            ClearLogsButton.Text = "Clear Logs";
+            ClearLogsButton.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -186,6 +220,8 @@ namespace Feihua
             BackColor = Color.FromArgb(30, 30, 30);
             BackgroundImage = Properties.Resources.feihua_bg;
             ClientSize = new Size(533, 273);
+            Controls.Add(ClearLogsButton);
+            Controls.Add(ScanFileButton);
             Controls.Add(MinimizeButton);
             Controls.Add(UpdateDatabaseButton);
             Controls.Add(LogTextBox);
@@ -217,5 +253,7 @@ namespace Feihua
         private TextBox LogTextBox;
         private Button UpdateDatabaseButton;
         private Button MinimizeButton;
+        private Button ScanFileButton;
+        private Button ClearLogsButton;
     }
 }
