@@ -22,6 +22,7 @@ Feihua "廢話" (pinyin: /fèi-huà/) translates closely to "nonsense."
 
 2. **Running Feihua**:
     - Double-click on `Feihua.exe` to launch the application.
+    - Click the `Update Database` button on first use or if you have no `hashes.sqlite3` on the extraction folder. This may take a while to finish depending on your network connection strength. Alternatively, you can download a pre-fetched `hashes.sqlite3` database from the [releases](https://github.com/nthnn/Feihua/releases).
     - Use the interface to select a file and check its hash against the VirusShare.com database with the `Scan File(s)` button.
 
 3. **Verifying Files**:
