@@ -98,20 +98,20 @@ namespace Feihua
             FileFolderLabel.ForeColor = Color.Gainsboro;
             FileFolderLabel.Location = new Point(12, 38);
             FileFolderLabel.Name = "FileFolderLabel";
-            FileFolderLabel.Size = new Size(80, 20);
+            FileFolderLabel.Size = new Size(77, 20);
             FileFolderLabel.TabIndex = 2;
-            FileFolderLabel.Text = "File/Folder";
+            FileFolderLabel.Text = "Input File: ";
             FileFolderLabel.MouseDown += WindowMove;
             // 
             // FileTextBox
             // 
             FileTextBox.BackColor = Color.FromArgb(30, 30, 30);
             FileTextBox.BorderStyle = BorderStyle.FixedSingle;
-            FileTextBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FileTextBox.ForeColor = Color.Gainsboro;
+            FileTextBox.Font = new Font("Consolas", 9.75F);
+            FileTextBox.ForeColor = Color.FromArgb(0, 192, 0);
             FileTextBox.Location = new Point(98, 37);
             FileTextBox.Name = "FileTextBox";
-            FileTextBox.Size = new Size(342, 25);
+            FileTextBox.Size = new Size(342, 23);
             FileTextBox.TabIndex = 3;
             FileTextBox.MouseDown += WindowMove;
             // 
@@ -125,10 +125,11 @@ namespace Feihua
             BrowseButton.ForeColor = Color.Gainsboro;
             BrowseButton.Location = new Point(446, 37);
             BrowseButton.Name = "BrowseButton";
-            BrowseButton.Size = new Size(75, 25);
+            BrowseButton.Size = new Size(75, 23);
             BrowseButton.TabIndex = 4;
             BrowseButton.TabStop = false;
             BrowseButton.Text = "Browse";
+            BrowseButton.TextAlign = ContentAlignment.TopCenter;
             BrowseButton.UseVisualStyleBackColor = false;
             BrowseButton.Click += BrowseFileFolderEvent;
             // 
@@ -136,8 +137,8 @@ namespace Feihua
             // 
             LogTextBox.BackColor = Color.FromArgb(30, 30, 30);
             LogTextBox.BorderStyle = BorderStyle.FixedSingle;
-            LogTextBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LogTextBox.ForeColor = Color.Gainsboro;
+            LogTextBox.Font = new Font("Consolas", 9.75F);
+            LogTextBox.ForeColor = Color.FromArgb(0, 192, 0);
             LogTextBox.Location = new Point(12, 68);
             LogTextBox.Multiline = true;
             LogTextBox.Name = "LogTextBox";
@@ -194,8 +195,9 @@ namespace Feihua
             ScanFileButton.Size = new Size(166, 25);
             ScanFileButton.TabIndex = 8;
             ScanFileButton.TabStop = false;
-            ScanFileButton.Text = "Scan File(s)";
+            ScanFileButton.Text = "Scan File";
             ScanFileButton.UseVisualStyleBackColor = false;
+            ScanFileButton.Click += ScanFileEvent;
             // 
             // ClearLogsButton
             // 

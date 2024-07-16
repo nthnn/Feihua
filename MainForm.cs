@@ -24,11 +24,12 @@ namespace Feihua
 {
     public partial class MainForm : Form
     {
-        private UpdaterUtil Updater = new UpdaterUtil();
+        private UpdaterUtil Updater;
 
         public MainForm()
         {
             InitializeComponent();
+            this.Updater = new UpdaterUtil(this.LogTextBox);
 
             GraphicsPath CircularPath = new GraphicsPath();
             CircularPath.AddEllipse(0, 0, 15, 15);
@@ -41,11 +42,13 @@ namespace Feihua
             this.MinimizeButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
             this.MinimizeButton.Region = new Region(CircularPath);
 
-            this.Banner.Cursor = Cursors.Arrow;
             this.LogTextBox.Cursor = Cursors.Arrow;
+            this.LogTextBox.AppendText("\r\n");
+
+            this.Banner.Cursor = Cursors.Arrow;
             this.UpdateDatabaseButton.Click += this.Updater.ButtonClickHandler;
 
-            Win32GUIUtil.SendMessage(this.FileTextBox.Handle, Win32GUIUtil.EM_SETCUEBANNER, 0, "File/Folder to scan...");
+            Win32GUIUtil.SendMessage(this.FileTextBox.Handle, Win32GUIUtil.EM_SETCUEBANNER, 0, "Input file to scan...");
         }
 
         public void CloseButtonEvent(object Sender, EventArgs Args)
@@ -92,25 +95,59 @@ namespace Feihua
             }
         }
 
+        private void ScanFileEvent(object sender, EventArgs e)
+        {
+            if (this.FileTextBox.Text == "")
+            {
+                this.Log("Error: Input file cannot be empty.\r\n");
+                return;
+            }
+
+            if (!File.Exists(this.FileTextBox.Text))
+            {
+                this.Log("Error: Input file does not exist.\r\n");
+                return;
+            }
+            this.Log("Info: Scanning input file.\r\n");
+
+            FileHashChecker hashChecker = new FileHashChecker();
+            if (hashChecker.CheckFileMD5Exists(this.FileTextBox.Text, this.LogTextBox))
+            {
+                this.Log("Info: Input file is a malware.\r\n");
+                MessageBox.Show(
+                    "Input file is a malware. Please take an action immediately.",
+                    "Malware Detected"
+                );
+
+                return;
+            }
+
+            this.Log("Info: Input file was not identified as malware.\r\n");
+        }
+
         private void BrowseFileFolderEvent(object sender, EventArgs e)
         {
             using (var dialog = new OpenFileDialog())
             {
                 dialog.Title = "Select File or Folder";
-                dialog.CheckFileExists = true;
-                dialog.CheckPathExists = true;
                 dialog.FileName = "Select folder or file";
                 dialog.Filter = "All files (*.*)|*.*";
-
-                dialog.ValidateNames = false;
-                dialog.CheckFileExists = false;
+                dialog.CheckFileExists = true;
                 dialog.CheckPathExists = true;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     this.FileTextBox.Text = dialog.FileName;
+                    this.Log("Info: Selected file:\r\n      " + this.FileTextBox.Text + "\r\n");
                 }
             }
+        }
+
+        private void Log(string Message)
+        {
+            this.LogTextBox.AppendText(Message);
+            this.LogTextBox.SelectionStart = this.LogTextBox.TextLength;
+            this.LogTextBox.ScrollToCaret();
         }
 
         private static void OpenUrl(string url)
@@ -133,10 +170,6 @@ namespace Feihua
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {
                     Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
                 }
             }
         }
