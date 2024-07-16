@@ -24,10 +24,12 @@ namespace Feihua
     {
         private const int StartIndex = 0;
         private const int EndIndex = 486;
+        private TextBox _logBox;
 
-        public UpdaterUtil()
+        public UpdaterUtil(TextBox _logBox)
         {
             InitializeDatabase();
+            this._logBox = _logBox;
         }
 
         private void InitializeDatabase()
@@ -55,7 +57,14 @@ namespace Feihua
             }
         }
 
-        public void UpdateHashes(Button Btn)
+        private void LogText(TextBox LogText, string Message)
+        {
+            LogText.AppendText(Message);
+            LogText.SelectionStart = LogText.TextLength;
+            LogText.ScrollToCaret();
+        }
+
+        public void UpdateHashes(Button Btn, TextBox LogBox)
         {
             Task.Run(() =>
             {
@@ -70,7 +79,7 @@ namespace Feihua
                             for (int i = StartIndex; i <= EndIndex; i++)
                             {
                                 string url = string.Format("https://virusshare.com/hashfiles/VirusShare_{0:D5}.md5", i);
-                                ProcessContent(webClient.GetStringAsync(url).Result, connection, Btn);
+                                ProcessContent(webClient.GetStringAsync(url).Result, connection, Btn, this._logBox);
 
                                 int percentage = (int)(((i - StartIndex + 1) / (double)(EndIndex - StartIndex + 1)) * 100);
                                 Btn.Invoke(new Action(() => Btn.Text = $"Updating ({percentage}%)"));
@@ -80,16 +89,20 @@ namespace Feihua
 
                     Btn.Enabled = true;
                     Btn.Invoke(new Action(() => Btn.Text = "Update Database"));
+
+                    this.LogText(LogBox, "Success: Done updating hash database.\r\n");
                 }
                 catch (Exception)
                 {
+                    this.LogText(LogBox, "Error: Failed to update hash database.\r\n");
+
                     Btn.Enabled = true;
                     Btn.Invoke(new Action(() => Btn.Text = "Update Database"));
                 }
             });
         }
 
-        private void ProcessContent(string Content, SQLiteConnection Connection, Button Btn)
+        private void ProcessContent(string Content, SQLiteConnection Connection, Button Btn, TextBox LogBox)
         {
             using (var transaction = Connection.BeginTransaction())
             {
@@ -112,6 +125,8 @@ namespace Feihua
                 }
                 catch(Exception Ex)
                 {
+                    this.LogText(LogBox, "Error: Failed to process hash database.\r\n");
+
                     Btn.Enabled = true;
                     Btn.Invoke(new Action(() => Btn.Text = "Update Database"));
                 }
@@ -124,7 +139,9 @@ namespace Feihua
             {
                 button.Text = "Updating (0%)";
                 button.Enabled = false;
-                UpdateHashes(button);
+
+                this.LogText(this._logBox, "Info: Updating hash database.\r\n");
+                UpdateHashes(button, this._logBox);
             }
         }
     }
