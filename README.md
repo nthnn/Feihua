@@ -1,5 +1,7 @@
 # Feihua
 
+![.NET Desktop CI](https://github.com/nthnn/Feihua/actions/workflows/dotnet.yml/badge.svg)
+
 Feihua is a lightweight anti-virus and anti-malware program designed for Windows systems. It verifies file hashes against the VirusShare.com database, helping users detect known malware and viruses based on their unique identifiers.
 
 Feihua "廢話" (pinyin: /fèi-huà/) translates closely to "nonsense."
